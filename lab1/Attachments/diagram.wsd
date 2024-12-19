@@ -1,0 +1,19 @@
+@startuml
+node "Local Machine" {
+  artifact "kubectl port-forward" as PortForward
+  [User] --> PortForward : HTTP :8200
+}
+
+node "Kubernetes Cluster" {
+  node "Service (vault-service)" {
+    artifact "NodePort" as Service
+  }
+  node "Pod (vault)" {
+    artifact "Container: Vault" as VaultContainer
+  }
+
+  Service --> VaultContainer : Forward :8200
+}
+
+PortForward --> Service : Forward :8200
+@enduml
