@@ -1,0 +1,21 @@
+@startuml
+
+rectangle "Kubernetes Cluster" {
+  component "Service\nitdt-contained-frontend\n(NodePort)" as service
+  
+  rectangle "Deployment: itdt-contained-frontend" {
+    component "Pod: itdt-contained-frontend-7f8fbb78b6-77zrt" as pod1 
+    component "Pod: itdt-contained-frontend-7f8fbb78b6-qbhkt" as pod2 
+  }
+}
+
+actor "User" as user
+
+user --> service : "HTTP Request"
+service --> pod1 : "Forward Request to Pod1"
+service --> pod2 : "Forward Request to Pod2"
+pod1 --> service : "HTTP Response from Pod1"
+pod2 --> service : "HTTP Response from Pod2"
+service --> user : "HTTP Response"
+
+@enduml
