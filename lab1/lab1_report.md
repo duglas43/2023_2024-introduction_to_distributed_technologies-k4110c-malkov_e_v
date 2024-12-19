@@ -1,22 +1,24 @@
+# Лабораторная работа №1 "Установка Docker и Minikube, мой первый манифест."
+
+```
 University: [ITMO University](https://itmo.ru/ru/)
-
 Faculty: [FICT](https://fict.itmo.ru)
-
 Course: [Introduction to distributed technologies](https://github.com/itmo-ict-faculty/introduction-to-distributed-technologies)
-
 Year: 2023/2024
-
 Group: K4110c
-
 Author: Malkov Evgenii Vitalevich
-
 Lab: Lab1
-
 Date of create: 15.12.2024
-
 Date of finished: 19.12.2024
+```
 
-## Разворачивание minikube кластера
+## Цель работы
+
+Ознакомиться с инструментами Minikube и Docker, развернуть свой первый "под".
+
+## Ход работы
+
+### 1. Разворачивание minikube кластера
 
 Развернём minikube кластер с помощью команды `minikube start`:
 
@@ -24,7 +26,7 @@ Date of finished: 19.12.2024
 
 Как мы можем увидеть, кластер был запущен с использование docker. Minikube создал контейнер на основе образа kicbase/stable:v0.0.45. Также в сообщении мы можем увидеть то, что kubectl был успешно настроен.
 
-## Запуск HashiCorp Vault
+### 2. Запуск HashiCorp Vault
 
 Для разворачивания "пода" Hashicorp Vault создадим манифест, в котом создадим под на основе образа vault:1.13.3, а также создадим сервис для доступа к поду.
 
@@ -91,11 +93,15 @@ spec:
 
 ![alt text](Attachments/image5.png)
 
-## Диаграмма развёртывания
+### 3. Диаграмма развёртывания
 
 В результате выполнения лабораторной работы было развернуто minikube кластер и под HashiCorp Vault. Диаграмма развёртывания представлена ниже. Код диаграммы можно найти [здесь](Attachments/diagram.wsd).
 
 <img src="Attachments/2024-12-19-15-23-42.png" alt="drawing" width="250" style="display: block; margin-left: auto; margin-right: auto;" align="center"/>
+
+## Вывод
+
+В ходе выполнения лабораторной работы был развернут minikube кластер и под HashiCorp Vault. Был создан манифест для разворачивания пода и сервиса. После этого мы смогли обратиться к HashiCorp Vault по адресу http://localhost:8200 и войти в него с помощью токена root.
 
 ## Ответы на вопросы
 
