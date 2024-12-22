@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: itdt-contained-frontend-configmap
+data:
+  REACT_APP_USERNAME: "Evgenii Malkov"
+  REACT_APP_COMPANY_NAME: "ITMO"

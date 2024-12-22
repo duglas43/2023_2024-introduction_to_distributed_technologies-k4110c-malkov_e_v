@@ -1,0 +1,46 @@
+@startuml
+
+node "Minikube Cluster" {
+    node "Ingress Controller" {
+        artifact "itdt-contained-frontend-ingress" {
+            label "Ingress Resource"
+        }
+    }
+
+    node "Kubernetes Services" {
+        artifact "itdt-contained-frontend-service" {
+            label "Service"
+        }
+    }
+
+    node "ReplicaSet" {
+        node "Pods" {
+            artifact "itdt-contained-frontend" {
+                label "Frontend Container"
+            }
+        }
+    }
+
+    database "ConfigMap" {
+        artifact "itdt-contained-frontend-configmap" {
+            label "Environment Variables"
+        }
+    }
+
+    database "Secrets" {
+        artifact "itdt-contained-frontend-tls" {
+            label "TLS Certificate"
+        }
+    }
+}
+
+actor "User" 
+
+"User" --> "Ingress Controller" : "Access https://malkov-frontend.com"
+"Ingress Controller" --> "Kubernetes Services" : "Route traffic"
+"Kubernetes Services" --> "ReplicaSet" : "Forward requests"
+"ReplicaSet" --> "Pods" : "Load balance requests"
+"Pods" --> "ConfigMap" : "Access environment variables"
+"Ingress Controller" --> "Secrets" : "Retrieve TLS Certificate"
+
+@enduml
