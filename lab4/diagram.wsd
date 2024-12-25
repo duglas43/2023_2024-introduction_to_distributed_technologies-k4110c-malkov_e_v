@@ -1,0 +1,39 @@
+@startuml
+
+skinparam actorStyle awesome
+skinparam packageStyle rectangle
+skinparam rectangleFontSize 12
+
+left to right direction
+
+actor "User" as user
+
+rectangle "Host Machine" {
+    rectangle "minikube tunnel" as tunnel
+}
+
+package "Minikube Cluster" {
+  rectangle "Node 1 (St. Petersburg)" {
+    frame "minikube\nlocation=st-petersburg" as N1 {
+      rectangle "IP Pool\n192.168.100.0/24" as IP1
+      rectangle "Frontend Pod 1\nREACT_APP_USERNAME=admin\nREACT_APP_COMPANY_NAME=ITMO" as P1
+    }
+  }
+
+  rectangle "Node 2 (Moscow)" {
+    frame "minikube-m02\nlocation=moscow" as N2 {
+      rectangle "IP Pool\n192.168.200.0/24" as IP2
+      rectangle "Frontend Pod 2\nREACT_APP_USERNAME=admin\nREACT_APP_COMPANY_NAME=ITMO" as P2
+    }
+  }
+
+  rectangle "NodePort Service\nPort: 3000" as SVC
+}
+
+
+user --> tunnel: http://localhost:3000
+tunnel --> SVC
+SVC --> P1
+SVC --> P2
+
+@enduml
